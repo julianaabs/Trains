@@ -37,18 +37,62 @@ void Trem::run()
             if (enable)
             {
                 emit updateGUI(id,x,y);
-                if (y == 120 && x <290)
+                if (y == 20 && x > 150)
+                    x-=10;
+                else if (x == 150 && y < 120)
+                    y+=10;
+                else if (x < 290 && y == 120)
+                    x+=10;
+                else if (x == 290 && y > 20)
+                    y-=10;
+                else
+                    x-=10;
+            }
+            break;
+        case 2:
+            if(enable)
+            {
+                if (x == 150 && y > 120)
+                    y-=10;
+                else if (y == 120 && x < 290)
                     x+=10;
                 else if (x == 290 && y < 220)
                     y+=10;
-                else if (x > 150 && y == 220)
+                else if (y == 220 && x > 150)
                     x-=10;
                 else
                     y-=10;
             }
             break;
-        case 2:
-            //emit updateGUI(id, x,y);
+        case 3:
+            if(enable)
+            {
+                if (x == 430 && y < 220)
+                    y+=10;
+                else if (y == 220 && x > 290)
+                    x-=10;
+                else if (x == 290 && y > 120)
+                    y-=10;
+                else if (y == 120 && x < 430)
+                    x+=10;
+                else
+                    y-=10;
+            }
+            break;
+        case 4:
+            if(enable)
+            {
+                if (x == 290 && y > 220)
+                    y-=10;
+                else if (y == 220 && x < 430)
+                    x+=10;
+                else if (x == 430 && y < 320)
+                    y+=10;
+                else if (y == 320 && x > 290)
+                    x-=10;
+                else
+                    y-=10;
+            }
             break;
         default:
             break;
