@@ -18,6 +18,12 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+    void stopAlltrains();
+    void startSingleTrain(int);
+    void stopSingleTrain(int);
+    void server();
+    //static void socketHandler(MainWindow *window, int socketDescriptor, Data data);
+
 public slots:
     void updateInterface(int,int,int);
 

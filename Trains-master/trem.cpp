@@ -1,4 +1,6 @@
 #include "trem.h"
+#include <iostream>
+
 
 Trem::Trem(int id, int x, int y)
 {
@@ -52,14 +54,15 @@ void Trem::run()
         case 2:
             if(enable)
             {
+                emit updateGUI(id,x,y);
                 if (x == 150 && y > 120)
                     y-=10;
-                else if (y == 120 && x < 290)
-                    x+=10;
-                else if (x == 290 && y < 220)
-                    y+=10;
                 else if (y == 220 && x > 150)
                     x-=10;
+                else if (x == 290 && y < 220)
+                    y+=10;
+                else if (y == 120 && x < 290)
+                    x+=10;
                 else
                     y-=10;
             }
@@ -67,14 +70,15 @@ void Trem::run()
         case 3:
             if(enable)
             {
-                if (x == 430 && y < 220)
+                emit updateGUI(id,x,y);
+                if (y == 120 && x < 430)
+                    x+=10;
+                else if (x == 430 && y < 220)
                     y+=10;
                 else if (y == 220 && x > 290)
                     x-=10;
                 else if (x == 290 && y > 120)
                     y-=10;
-                else if (y == 120 && x < 430)
-                    x+=10;
                 else
                     y-=10;
             }
@@ -82,14 +86,15 @@ void Trem::run()
         case 4:
             if(enable)
             {
-                if (x == 290 && y > 220)
-                    y-=10;
-                else if (y == 220 && x < 430)
+                emit updateGUI(id,x,y);
+                if (y == 220 && x < 430)
                     x+=10;
                 else if (x == 430 && y < 320)
                     y+=10;
                 else if (y == 320 && x > 290)
                     x-=10;
+                else if (x == 290 && y < 220)
+                    y-=10;
                 else
                     y-=10;
             }
