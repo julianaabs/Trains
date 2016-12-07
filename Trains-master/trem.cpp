@@ -2,18 +2,35 @@
 #include <iostream>
 
 
-Trem::Trem(int id, int x, int y)
+Trem::Trem(int id, int x, int y, std::vector<Semaforo*> *semaphore)
 {
     this->id = id;
     this->x = x;
     this->y = y;
     velocidade = 250;
     enable = true;
+    this->semaphore = semaphore;
 }
 
 Trem::~Trem()
 {
     threadTrem.join();
+}
+
+int Trem::getX() {
+    return this->x;
+}
+
+void Trem::setX(int px) {
+    this->x = px;
+}
+
+int Trem::getY() {
+    return this->y;
+}
+
+void Trem::setY(int py) {
+    this->y = py;
 }
 
 void Trem::setVelocidade(int velocidade)
@@ -102,7 +119,47 @@ void Trem::run()
         default:
             break;
         }
+        verifyTrain(); // test if the rails is being used.
         this_thread::sleep_for(chrono::milliseconds(velocidade));
+    }
+}
+
+void Trem::verifyTrain() {
+    if(id == 1) {
+        if(x == 150 && y == 100) {
+            semaphore->at(0)->P(); // bloc the critic area  or stop before the critic area.
+        }
+        if(x == 290 && y == 100) {
+            semaphore->at(0)->V(); // block the critic area
+        }
+    }
+    else if(id == 2) { // blue train
+        if(x == 150 && y == 140) {
+            semaphore->at(0)->P(); // bloc the critic area  or stop before the critic area.
+            semaphore->at(1)->P(); // bloc the critic area  or stop before the critic area.
+        }
+        if(x == 270 && y == 220) {
+            semaphore->at(0)->V(); // unblock the critic area.
+            semaphore->at(1)->V(); // unblock the critic area.
+        }
+    }
+    else if(id == 3) {
+        if(x == 430 && y == 200) {
+            semaphore->at(1)->P(); // bloc the critic area  or stop before the critic area.
+            semaphore->at(2)->P(); // bloc the critic area  or stop before the critic area.
+        }
+        if(x == 310 && y == 120) {
+            semaphore->at(1)->V(); // unblock the critic area.
+            semaphore->at(2)->V(); // unblock the critic area.
+        }
+    }
+    else {
+        if(x == 290 && y == 240) {
+            semaphore->at(2)->P(); // block the critic area
+        }
+        if(x == 430 && y == 240) {
+            semaphore->at(2)->V(); // block the critic area
+        }
     }
 }
 

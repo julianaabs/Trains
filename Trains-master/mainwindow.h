@@ -4,12 +4,19 @@
 #include "trem.h"
 #include <QMainWindow>
 
+#include <vector>
+
+#include "semaforo.h"
+
 using namespace std;
 
 namespace Ui {
 class MainWindow;
 }
 
+/**
+ * @brief The MainWindow class
+ */
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -18,7 +25,6 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
-    void startAllTrains();
     void stopAlltrains();
     void startSingleTrain(int);
     void stopSingleTrain(int);
@@ -30,6 +36,8 @@ public slots:
 
 private:
     Ui::MainWindow *ui;
+    std::vector<Trem*> trens;
+    std::vector<Semaforo*> *semaphore;
     Trem *trem1;
     Trem *trem2;
     Trem *trem3;
